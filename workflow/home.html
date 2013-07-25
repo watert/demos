@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>
+		
+	</title>
+	<script src="../libs/jquery-1.10.2.min.js"></script>
+	<script src="../libs/underscore+backbone.js"></script>
+	<script src="../libs/bootstrap23/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../libs/bootstrap23/css/bootstrap.min.css">
+	<link rel="stylesheet/less" href="../libs/bootstrap.mod.less">
+	<style type="text/less">
+		/*body {font-family:"微软雅黑",Arial;}*/
+		.dashboard {
+			.lead {margin-bottom:0;}
+		}
+	</style>
+	<script src="../libs/less-1.2.2.min.js"></script>
+</head>
+<body>
+	<div id="navbar"></div>
+	<script> $("#navbar").load("nav.html"); </script>
+	
+	<div class="container">
+		<br>
+		<div class="row">
+			<div class="span9">
+				<div class="row-fluid dashboard">
+					<div class="span3">
+						<h5 class="muted">待处理流程</h5>
+						<p class="lead"><a href="#">5</a></p>
+					</div>
+					<div class="span3">
+						<h5 class="muted">已处理流程</h5>
+						<p class="lead"><a href="#">235</a></p>
+					</div>
+					<div class="span3">
+						<h5 class="muted">相关未结束流程</h5>
+						<p class="lead"><a href="#">6</a></p>
+					</div>
+					<div class="span3">
+						<h5 class="muted">归属流程</h5>
+						<p class="lead"><a href="#">3</a></p>
+					</div>
+				</div>
+				<hr>
+				<br>
+				<table class="table">
+					<thead>
+						<tr><th colspan="100%">待处理流程</th></tr>
+						<tr>
+							<th>状态</th>
+							<th>流程名</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><span class="label label-success">新建</span></td>
+							<td>XXXXXXX XXXXXX XXXXX XXXXXX XXX</td>
+							<td class="actions">
+								<button class="btn btn-primary btn-mini">处理</button>
+								<button class="btn btn-mini btn-link">终止</button>
+							</td>
+						</tr>
+						<tr>
+							<td><span class="label label-info">处理中</span></td>
+							<td>XXXXXXX XXXXXX XXXXX XXXXXX XXX</td>
+							<td class="actions">
+								<button class="btn btn-primary btn-mini">处理</button>
+								<button class="btn btn-mini btn-link">终止</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="span3">
+				<div class="mod">
+					<div class="mod-header">
+						<p class="">提交流程</p>
+					</div>
+					<div class="mod-body">
+						<ul class="unstyled nav nav-list">
+							<li><a href="#"> 流程类别1 <i class="pull-right icon-chevron-right"></i></a></li>
+							<li><a href="#"> 流程类别2 <i class="pull-right icon-chevron-right"></i></a></li>
+							<li><a href="#"> 流程类别3 <i class="pull-right icon-chevron-right"></i></a></li>
+						</ul>
+					</div>
+					<div class="mod-footer">
+						<p>注意：</p>
+					</div>
+				</div>
+				<div class="mod">
+					<div class="mod-body">
+						<ul class="unstyled nav nav-list">
+							<li><a href="#">流程查询 </a></li>
+							<li><a href="#">我的类别 <span class="badge">5</span> </a></li>
+							<li><a href="#">创建类别</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

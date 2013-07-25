@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>
+		
+	</title>
+	<script src="../libs/jquery-1.10.2.min.js"></script>
+	<script src="../libs/underscore+backbone.js"></script>
+	<script src="../libs/bootstrap23/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../libs/bootstrap23/css/bootstrap.min.css">
+	<link rel="stylesheet/less" href="../libs/bootstrap.mod.less">
+	<style type="text/less">
+		/*body {font-family:"微软雅黑",Arial;}*/
+		.dashboard {
+			.lead {margin-bottom:0;}
+		}
+		#flow-list {
+			li.active { background:hsl(200,100%,52%);color:#FFF; border-radius:4px; }
+			.mod-footer {padding:10px;margin-top:10px;}
+			.mod {margin-left:40px;}
+		}
+		#flow-form {
+			.controls {padding-left:10px;}
+			.control-label {background:hsl(200,50%,95%);padding:5px 10px;}
+		}
+	</style>
+	<script src="../libs/less-1.2.2.min.js"></script>
+</head>
+<body>
+
+	<div id="navbar"></div>
+	<script> 
+		$("#navbar").load("nav.html",function(){ 
+			$("#navbar").find("li:eq(1)").addClass("active").siblings().removeClass("active");
+		}); 
+	</script>
+
+	<div class="container">
+		<br>
+
+		<ul class="breadcrumb">
+			<li><a href="#">Home</a> <span class="divider">/</span></li>
+			<li class="active">流程处理</li>
+		</ul>
+		<div class="row">
+			<div class="span8">
+				<form id="flow-form" class="form-horizontal">
+					<fieldset>
+						<legend>基本信息</legend>
+						<div class="control-group">
+							<label for="" class="control-label">ID</label>
+							<div class="controls">
+								<input type="text" value="123" disabled>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label for="" class="control-label">Title</label>
+							<div class="controls"><input type="text" value="Title title" disabled></div>
+						</div>
+
+						<div class="control-group">
+							<label for="" class="control-label">helper</label>
+							<div class="controls">
+								<code>.control-group>(label.control-label+.controls>input)</code>
+							</div>
+						</div>
+						
+						<legend>操作</legend>
+						<div class="control-group">
+							<label for="" class="control-label">Logs</label>
+							<div class="controls">
+								<pre>
+arongji 于 3个月前 需求单创建 ( 递交至 <b>willliu</b>; )
+willliu 于 2个月前 审核通过 ( 递交至 <b>morganwu</b>; )
+morganwu 于 2个月前 需求认领 ( 递交至 <b>morganwu</b>; ) </pre>
+								<p class="alert"> 请阅览处理日志再进行操作</p>
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="" class="control-label">User</label>
+							<div class="controls">
+								<input type="text" value="123" >
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label for="" class="control-label">Comment</label>
+							<div class="controls">
+								<textarea name="comment" id="" cols="30" rows="10"></textarea>
+							</div>
+						</div>
+
+
+						<div class="form-actions">
+							<button class="btn btn-primary">Save</button>
+						</div>
+					</fieldset>
+				</form>
+				<script>
+				$("form").find("input,textarea").addClass("input-block-level");</script>
+			</div>
+			<div class="span4" id="flow-list">
+				<br>
+				<div class="mod mod-info">
+					<div class="mod-header"> <h3>流程</h3> </div>
+					<div class="mod-body">
+						<ol>
+							<li class="muted"> 创建 </li>
+							<li class="muted"> 审核 </li>
+							<li class="active"> 执行 </li>
+							<li>测试</li>
+							<li>结单</li>
+						</ol>
+					</div>
+					<div class="mod-footer">
+						<div class="actions text-right">
+							<button class="btn">修改流程</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>
+		
+	</title>
+	<script src="../libs/jquery-1.10.2.min.js"></script>
+	<script src="../libs/underscore+backbone.js"></script>
+	<script src="../libs/jQuery.lightDataBind.js"></script>
+	<script src="../libs/moment.min.js"></script>
+	<script src="../libs/bootstrap23/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../libs/bootstrap23/css/bootstrap.min.css">
+	<link rel="stylesheet/less" href="../libs/bootstrap.mod.less">
+	<style type="text/less">
+		/*body {font-family:"微软雅黑",Arial;}*/
+		.flow-table {
+			.label {padding:4px 8px;border-radius:2px;}
+			.id-field {width: 50px;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				display: inline-block;
+				overflow: hidden;}
+			code {border:none;background:none;padding:0;color:black;}
+		}
+	</style>
+	<script src="../libs/less-1.2.2.min.js"></script>
+</head>
+<body>
+	<div id="navbar"></div>
+	<script> $("#navbar").load("nav.html"); </script>
+	
+
+	<div class="container">
+		<br>
+		<ul class="breadcrumb">
+			<li><a href="#">Home</a> <span class="divider">/</span></li>
+			<li class="active">流程查询</li>
+		</ul>
+
+		<form action="" class="form form-inline">
+			<span class="input-prepend">
+				<span class="add-on">ID</span>
+				<input type="text" name="id" class="input span1">
+			</span>
+			<span class="input-prepend">
+				<span class="add-on">Status</span>
+				<select name="status" id="" class="span2">
+					<option value="all">All</option>
+					<option value="created">Created</option>
+				</select>
+			</span>
+			<label class="checkbox ">
+				<input type="checkbox" name="isMine" >
+				My Ticket
+			</label>
+			　
+			<button class="btn btn-primary">Submit</button>
+		</form>
+		<hr>
+
+
+		<table class="table flow-table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>状态</th>
+					<th>标题</th>
+					<th>当前处理人</th>
+					<th>最后处理人</th>
+					<th>最后处理时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="hide">
+					<td><code class="id-field" data-text="_id">1231817312647135</code> </td>
+					<td><span class="label" data-text="status" data-func="status">Created</span></td>
+					<td><a href="" data-text="title">Hello World</a></td>
+					<td data-func="currentUser">waterwu</td>
+					<td data-text="creatorName">waterwu</td>
+					<td data-func="editTime">2013-07-24 11:03</td>
+				</tr>
+			</tbody>
+		</table>
+		<script>
+			(function(){
+				var url = "http://workflow.ibg.com/data/queryList/?callback=?";
+				var tmpl = $(".flow-table tr.hide");
+				$.getJSON(url,function(data){
+					console.log(data);
+					_.each(data,function(r){ 
+						r = _.defaults(r,{
+							creator:{name:"unknown"},
+							status:"unknown"
+						});
+						r.creatorName = r.creator.name; 
+						var dom = tmpl.clone().removeClass("hide").insertBefore(tmpl).ldata(r,{
+							currentUser:function(dom,data){
+								if(data)dom.text(_.map(data.currentOwner,function(u){return u.name;}).join(";"));
+							},
+							status:function(dom,data){
+								if(data)dom.addClass("label-"+data.status);
+							},
+							editTime:function(dom,data){
+								var format = "YYYY-MM-DD HH:mm:ss";
+								if(data)dom.text(moment(data.editTime).format(format));
+								else return {editTime:moment(dom.text(),format)._d};
+							}
+						});
+
+					});
+					
+				});
+			})();
+		</script>
+
+		<div class="footer">
+			<hr>
+			<pre>
+shelton:
+可查询的选项有
+ID 状态 创建者  当前处理人 标题 创建时间</pre>
+		</div>
+	</div>
+	
+</body>
+</html>

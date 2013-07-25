@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>
+		
+	</title>
+	<script src="libs/jquery-1.10.2.min.js"></script>
+	<script src="libs/underscore+backbone.js"></script>
+	<script src="libs/bootstrap23/js/bootstrap.min.js"></script>
+	<script src="libs/jquery.sparkline.min.js"></script>
+	<link rel="stylesheet" href="libs/bootstrap23/css/bootstrap.min.css">
+	<link rel="stylesheet/less" href="libs/bootstrap.mod.less">
+	<style type="text/less">
+		/*body {font-family:"微软雅黑",Arial;}*/
+		.form.clearfix .nav {margin:0;}
+
+		.table-dist { 
+			td { font-size:12px;text-align:center;padding:2px;} 
+			.progress {margin:3px 0;height:10px;border-radius:2px;}
+			thead tr {background:#DDD;}
+			.datarow td {font:normal 16px arial;padding:5px;}
+		}
+		.input-append input, .input-prepend input, .input-append select, .input-prepend select, .input-append .uneditable-input, .input-prepend .uneditable-input, .input-append .dropdown-menu, .input-prepend .dropdown-menu, .input-append .popover, .input-prepend .popover {font-size:12px;}
+		hr {margin:1em 0;}
+	</style>
+	<script src="libs/less-1.2.2.min.js"></script>
+</head>
+<body>
+	<div id="navbar"></div>
+	<script> $("#navbar").load("nav.html"); </script>
+	
+	<br>
+	<div class="container">
+		<form class="form form-inline clearfix">
+			<ul class="nav nav-pills pull-left">
+				<li class="active"><a href="">严重</a></li>
+				<li><a href="">一般</a></li>
+			</ul>
+			　
+			<label class="inline checkbox">
+				<input type="checkbox" checked name="" id=""> 业务
+			</label>
+			<label class="inline checkbox">
+				<input type="checkbox" checked name="" id=""> 日志
+			</label>
+			<label class="inline checkbox">
+				<input type="checkbox" name="" id=""> 模块
+			</label>
+		</form>
+		<hr>
+		<div class="">
+			<div class="row-fluid">
+				<div class="span9 text-center">
+					<p class="alert">
+						32条告警未更新，曲线视图覆盖率50%。其中严重告警10条，曲线覆盖20%。
+						<button class="btn btn-primary">更新</button> 
+					</p>
+					<hr>
+				</div>
+				<div class="span3 hide">
+					<table class="table table-bordered table-dist">
+						<thead>
+							<tr class="info">
+								<td colspan="100%" class="text-center">未更新的20条</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="100%">
+									<div class="progress">
+										<div class="bar" style="width:20%"></div>
+										<div class="bar bar-warning" style="width:50%"></div>
+										<div class="bar bar-danger" style="width:30%"></div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>业务告警</td>
+								<td>模块告警</td>
+								<td>日志告警</td>
+							</tr>
+							<tr class="datarow">
+								<td>121</td>
+								<td>121</td>
+								<td>121</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="span9">
+					<div class="row">
+						<div class="alarm-row clearfix" style="border-bottom:1px solid #EEE;margin:20px 0;">
+							<div class="span3">
+								<div class="sparkline">
+									
+								</div>
+							</div>
+							<div class="span6" style="font-size:12px;">
+								<p>
+									<span class="label label-warning">一般</span>
+									<code>Today 18:54</code>
+									WeChat->日志监控 [一般]	
+									,<b class="text-info" title="负责人">@thinksan</b>
+								</p>
+								<pre style="max-height:3.6em;font:normal 12px/1.2 consolas;padding:2px;overflow:hidden;">
+告警内容: WeChat->日志监控 [一般]
+【检查结果】
+同比&&周基线比:-46.58% < -15% && -31.55% < -15%
+【检查条件】
+键值:IBGReponse漂流瓶扔瓶子上报
+
+时间:18:45
+视图: 微信  > 运营监控平台  > HK IDClog上报(viewId:6557,alarm_key:view_648)
+告警时间：2013-07-24 18:55:06
+								</pre>
+							</div>
+						</div>
+
+						<script>
+							var row = $(".alarm-row");
+							_(_.range(20)).each(function(){
+								row.clone().insertBefore(row);
+							});
+							$(".sparkline").each(function(idx){
+								var data = _.map(_.range(60*5),function(i){return 5*i+1000*Math.random()*Math.sin(i*10/Math.PI);});
+								$(this).sparkline(data,{width:"100%",height:80,lineColor:"#09C",fillColor:"#CEF"});
+							});
+						</script>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
