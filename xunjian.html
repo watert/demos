@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="http://10.6.222.153/weblib/libs/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://10.6.222.153/weblib/libs/bootstrap/css/bootstrap-responsive.min.css">
+	<link rel="stylesheet" href="http://10.6.222.153/weblib/libs/bootstrap/css/font-awesome.min.css">
+
+	<script src="http://10.6.222.153/weblib/libs/require.js"></script>
+	<script src="http://10.6.222.153/weblib/config.js"></script>
+	<script> require.config({baseUrl:"http://10.6.222.153/weblib/"});  </script>
+
+
+	<style type="text/less">
+
+		.unit-trend{
+			padding:5px;margin:0 10px 10px 0;float:left;border:1px solid rgba(0,0,0,0.3);box-shadow:0 1px 2px rgba(0,0,0,0.2);
+			font-size:12px;
+			.red {color:red;}
+			.green {color:green;}
+			.unit-number {
+				line-height:1em;
+				color:#FFF;font-size:1.4em;border-radius:2px;padding:2px 5px;margin-right:5px;
+				&.red {background:red;}
+				&.green {background:green;}
+			}
+		}
+		.unit-chart {
+			width:180px; background:#FFF;border:1px solid #EEE;border-width:1px 0;
+			margin:5px -5px;
+		}
+		.d3linechart {height:90px;width:100%;
+			@bgColor:#FFF;
+		    .line-path {fill:none;stroke:hsl(200,100%,65%);stroke-width:1.5px; z-index:5;}
+		    .area-path {fill:hsla(200,100%,65%,0.25); z-index:5;}
+		    .line-path2 {fill:none;stroke:hsla(40,100%,65%,0.4);stroke-width:1.2px;}
+		    .area-path2 {fill:hsla(40,100%,65%,0.05);}
+		    .tick {stroke:none;fill:contrast(@bgColor);font-size:12px;
+		        line {stroke:contrast(@bgColor);}
+		    }
+		    .axis path{stroke:hsla(0,100%,100%,0.35);}
+		    .alarm-point {
+		        fill:red;
+		        opacity:0.5;
+		        // -webkit-animation: alarmFlash 1s ease infinite;
+		    }
+		}
+	</style>
+	<style type="text/less">
+		body {background:hsl(120,100%,98%);}
+		#main-container {margin-top:20px;}
+		#side {
+			.btn-all-sections.active { 
+				background:hsl(200,100%,60%);border:1px solid hsl(200,100%,50%);
+				color:#FFF;font-weight:bold;text-shadow:none; 
+				&:hover { background:hsl(200,100%,50%); }
+				transition:background 0.1s ease;
+			}
+			ul {margin-bottom:20px;border-radius:5px;}
+			ul.nav-pills {background:hsl(120,30%,93%);}
+			li {
+				i {width:1em;display:inline-block;text-align:center;}
+				a {border-radius:0;}
+				&.active a {background:hsl(120,50%,50%);}
+				a:hover {background:hsl(120,30%,80%);color:hsl(120,70%,30%);}
+			}
+		}
+		.navbar { .btn {margin-right:10px;}}
+	</style>
+	<!-- <script>require(["less"]);</script> -->
+
+	<script>
+		require(["app/base","http://10.6.222.153/m2/js/screen.classes.amd.js","d3","less"],
+			function(App,ScreenView){ // Main Part
+				// window.App = _.extend(window.App||{},App);
+				var sectionsConfig = [
+					{
+						device:"iPhone",idc:"HK",icon:"icon-apple",
+						url:"http://alarm.ibg.com/duty/data/view?idc=hk&device=all&callback=?"
+					},
+					{
+						device:"Android",idc:"CA",icon:"icon-android",
+						url:"http://m.ibg.com/screen_data/api/module?idc=hk_5&callback=?"
+					}
+				];
+				var dom = $("#main");
+
+				// new SectionView({el:$("xxx")[0], data:{...} })
+				var SectionView = Backbone.View.extend({ 
+					render:function(data){
+						var dom = this.$(".sec-body");
+
+						_.each(data,function(row){
+							var v = new ScreenView({});
+							v.$el.appendTo(dom);
+							v.setData(row);
+						});
+						console.log(data,dom);
+					},
+					tagName:"div",
+					className:"data-section",
+					tmpl:_.template('<h3 class="title">'
+							+'<%if(icon){ %> <i class="<%=icon%>"></i>  <% }%>'
+							+'<%=title%> <small> (<%=device%>, <%=idc%>) </small> </h3>'
+						+'<div class="sec-body clearfix"></div>'),
+					initialize:function(options){
+						this.data = options.data;
+						var tmpl = $(".tmpls .unit-trend");
+						this.$el.html(this.tmpl(this.data));
+						var that = this;
+						$.getJSON(this.data.url,function(data){
+							that.render(data);
+						});
+					}
+				});
+
+				_.each(sectionsConfig,function(row){
+					var data = _.defaults(row,{
+						title:"hello",icon:false,device:"",idc:""
+					});
+					var v = new SectionView({data:data});
+					v.$el.appendTo(dom);
+				});
+
+
+			}
+		);
+	</script>
+	<title> Duty 巡检视图</title>
+</head>
+<body>
+	<div class="navbar navbar-static-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<button class="btn pull-left" type="button"><i class="icon-reorder"></i></button>
+				<a href="" class="brand">Duty 巡检视图</a>
+			</div>
+		</div>
+	</div>
+	<div class="container" id="main-container">
+		<div class="row">
+			<div class="span4">
+				<div id="side">
+					<p>
+						<a href="" class="btn btn-all-sections input-block-level">所有视图</a>
+					</p>
+
+					<ul class="nav nav-pills nav-stacked">
+						<li class="nav-header">选择设备</li>
+						<li class="active"><a href=""> <i class="icon-apple"></i> iPhone </a></li>
+						<li><a href=""> <i class="icon-android"></i> Android </a></li>
+						<li><a href=""> <i class="icon-mobile-phone"></i> BlackBerry </a></li>
+						<li><a href=""> <i class="icon-windows"></i> Windows </a></li>
+						<li class="nav-header">选择IDC</li>
+						<li><a href=""> Hong Kong </a></li>
+						<li><a href=""> Canada </a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="span8">
+				<div class="alert">
+					<p>巡检视图用法说明</p>
+				</div>
+				<div id="main">
+					
+				</div>
+
+
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>
