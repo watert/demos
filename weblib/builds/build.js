@@ -1,11 +1,16 @@
-require.config({
+/*
+    Main Build.
+*/
+({
+    baseUrl:"../",
+    name:"main",
+    out:"out/main.js",
     paths:{
         jquery:"libs/jquery.min",
         underscore:"libs/underscore-min",
         backbone:"libs/backbone-min",
         less:"libs/less-1.4.2.min",
         d3:"libs/d3.v3.min"
-        // app:"app/base"
     },
     shim:{
     	"backbone":{
@@ -16,4 +21,4 @@ require.config({
     		exports:"App"
     	}
     }
-});
+})
