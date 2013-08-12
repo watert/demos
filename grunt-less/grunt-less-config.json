@@ -1,0 +1,11 @@
+{
+	"options":{
+		"paths":"less"
+	},
+	"files":[{
+		"expand":true,
+		"cwd":"less",
+		"src":"*.less",
+		"ext":".css"
+	}]
+}

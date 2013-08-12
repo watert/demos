@@ -1,0 +1,10 @@
+.c1 {
+  font-size: 14px;
+}
+.c1.large {
+  font-size: 20px;
+  color: #999;
+}
+.c1 small {
+  font-size: 12px;
+}
