@@ -1,6 +1,5 @@
 module.exports = (grunt) ->
 	grunt.initConfig
-		# "less":grunt.file.readJSON('grunt-less-config.json')
 		watch:
 			less:
 				files:["less/**/*.less"]
@@ -12,8 +11,13 @@ module.exports = (grunt) ->
 				"expand":true,
 				"cwd":"less",
 				"src":"*.less",
+				"dest":"less-build/",
 				"ext":".css"
 	grunt.loadNpmTasks('grunt-contrib-less')
 	grunt.loadNpmTasks('grunt-contrib-watch')
-	grunt.registerTask 'default', 'Try Logging', ->
-		grunt.log.write('Running the default task')
+	grunt.registerTask 'default', 'Gruntfile Running', ->
+		# do some require job
+		grunt.log.write('Running the grunt task')
+		console.log "something"
+		console.log "shit"
+

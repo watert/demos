@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+
+
+	<script src="http://localhost/demos/weblib/require+config.js"></script>
+
+	<script>
+
+
+	</script>
+	<script>
+		// require(["app/base"],function(App){
+		// 	console.log("hello2, ",App);
+		// });
+
+		require(["model.js"],function(Model){
+			var m = new Model();
+			console.log(m);
+		});
+	</script>
+
+
+	<title></title>
+</head>
+<body>
+	Requirejs Weblib Test Case.
+</body>
+</html>
