@@ -41,21 +41,55 @@ Config by watert
 
 require.config({
 	baseUrl:"http://localhost/demos/weblib",
-    paths:{
-        jquery:"libs/jquery.min",
-        underscore:"libs/underscore-min",
-        backbone:"libs/backbone-min",
-        less:"libs/less-1.4.2.min",
-        d3:"libs/d3.v3.min"
-        // app:"app/base"
-    },
-    shim:{
-    	"backbone":{
-            deps:["underscore","jquery"],exports:"Backbone"
+	paths:{
+		jquery:"libs/jquery.min",
+		underscore:"libs/underscore-min",
+        bootstrap:"libs/bootstrap/js/bootstrap.min.js",
+		backbone:"libs/backbone-min",
+		less:"libs/less-1.4.2.min",
+		d3:"libs/d3.v3.min",
+		ldata:"libs/jQuery.lightDataBind",
+        "jquery.ui.widget":"libs/jQuery-File-Upload-8.8.2/js/vendor/jquery.ui.widget",
+		"jquery-file-upload":"libs/jQuery-File-Upload-8.8.2/js/jquery.fileupload"
+		// app:"app/base"
+	},
+	shim:{
+        "jquery.ui.widget":{
+            deps:["jquery"]
         },
-    	"app/base":{
-    		deps:["backbone","jquery"],
-    		exports:"App"
-    	}
-    }
+		"jquery-file-upload":{
+            deps:[
+                "jquery",
+                "jquery.ui.widget",
+                "libs/jQuery-File-Upload-8.8.2/js/jquery.iframe-transport.js"
+                // "jquery.ui.widget"
+            ]
+        },
+		"ldata":{
+			deps:["jquery"]
+		},
+		"backbone":{
+			deps:["underscore","jquery"],exports:"Backbone"
+		},
+		"app/base":{
+			deps:["backbone","jquery"],
+			exports:"App"
+		}
+	}
 });
+
+(function(){
+    function loadCss(url) {
+        url = require.toUrl(url);
+        var link = document.createElement("link");
+        link.type = "text/css"; link.rel = "stylesheet"; link.href = url;
+        document.getElementsByTagName("head")[0].appendChild(link);
+    }
+    // function loadUrl(url){
+
+    // }
+    define("bootstrap",function(){
+        loadCss("libs/bootstrap/css/bootstrap.min.css");
+        loadCss("libs/bootstrap/css/font-awesome.min.css");
+    });
+})();

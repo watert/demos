@@ -1,7 +1,7 @@
 /*
     Including: jQuery BBQ, IE window.console Fix, HTML5 Shiv (for standard html5 tag using. )
 */
-define(["jquery","underscore","backbone"],function($){
+define(["jquery","underscore","backbone","ldata"],function($){
 
     $deparam();
     // My App

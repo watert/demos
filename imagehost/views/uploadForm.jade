@@ -1,0 +1,15 @@
+:less
+	form.upload {
+		.btn-upload {position:relative;overflow:hidden;
+			[type=file] {position:absolute; right:0; cursor:pointer;height:100%;}
+		}
+
+	}
+:coffee
+	require ["jquery-file-upload","bootstrap"],(jqfupload)->
+		$ -> $(".btn-upload").fileupload()
+form.upload(method="POST", action="upload/path")
+	span.btn.btn-upload.btn-primary
+		i.icon-plus 
+		span Select File
+		input(type="file",name="images[]")
