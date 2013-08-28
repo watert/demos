@@ -17,13 +17,12 @@ mongoose.connect('localhost/test');
 app.set('port', process.env.PORT || 3002);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-// app.use(express.compiler({ src : __dirname + '/public', enable: ['less']}));
-// app.use(express.compiler({
-// 	src: __dirname + "/public",
-// 	// dest: __dirname + "/public",
-// 	enable: ['coffeescript']
-// }));
+
 app.use(require("less-middleware")({
+	src: __dirname + '/public',
+	compress: true
+}));
+app.use(require("connect-coffee-script")({
 	src: __dirname + '/public',
 	compress: true
 }));

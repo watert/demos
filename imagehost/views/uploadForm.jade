@@ -5,11 +5,8 @@
 		}
 
 	}
-:coffee
-	require ["jquery-file-upload","bootstrap"],(jqfupload)->
-		$ -> $(".btn-upload").fileupload()
 form.upload(method="POST", action="upload/path")
-	span.btn.btn-upload.btn-primary
+	span.btn.btn-upload.btn-mini 
 		i.icon-plus 
 		span Select File
 		input(type="file",name="images[]")

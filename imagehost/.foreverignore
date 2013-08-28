@@ -1,2 +1,6 @@
 *.jade
 *.jpg
+*.less
+*.coffee
+*.js
+*.css

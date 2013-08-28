@@ -1,4 +1,4 @@
-require ["backbone"],(Backbone)->
+require ["backbone","app/base"],(Backbone,App)->
 	GalleryView = Backbone.View.extend
 		descTmpl = _.template """
 			path: <code><%=path%></code>
@@ -8,7 +8,7 @@ require ["backbone"],(Backbone)->
 			@$(".desc").html @descTmpl @collection
 		initialize:(options)->
 			@collection - options.collection
-			@render
+			@render()
 	ImageView = Backbone.View.extend
 		tmpl: _.template """
 			<div class="img-container">
@@ -32,6 +32,7 @@ require ["backbone"],(Backbone)->
 		parse:(data)->
 			@data = data
 			data.images
+
 	$ ->
 		path = "path"
 		collection = new GalleryCollection(path)
@@ -41,5 +42,5 @@ require ["backbone"],(Backbone)->
 			@each (img)->
 				view = new ImageView img
 				$el.append view.$el
-
+		window.app = App;
 		collection.fetch()
