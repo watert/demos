@@ -42,5 +42,7 @@ require ["backbone","app/base"],(Backbone,App)->
 			@each (img)->
 				view = new ImageView img
 				$el.append view.$el
+			console.log App.trigger
+			App.trigger "gallery-loaded"
 		window.app = App;
 		collection.fetch()

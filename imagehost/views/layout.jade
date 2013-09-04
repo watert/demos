@@ -4,6 +4,8 @@ html
 		head
 			title= title
 			link(rel='stylesheet', href='/less/style.css')
-			script(src="http://localhost/demos/weblib/require+config.js")
+			script(src="http://localhost/weblib/require+config.js")
+			:coffee
+				require ["bootstrap"]
 	body
 		block content

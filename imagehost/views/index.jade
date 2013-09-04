@@ -3,11 +3,11 @@ block append head
 	:less
 		.gallery-container {
 			height:100px;
-			
+
 			padding:5px;border:3px solid #EEE;overflow:hidden;
 			form {margin:0;}
 			.desc {margin-left:5px;}
-			.gallery-title {margin:0 0 5px;}
+			.gallery-title {padding:0 0 5px;}
 			.gallery {overflow:hidden;max-height:110px;}
 		}
 		.image-item {
@@ -16,10 +16,7 @@ block append head
 			img {max-width:none;}
 		}
 	script(src="coffee/index.js")
-	:coffee
-		require ["backbone"],(Backbone)->
-			$ ->
-				console.log "heyhey"
+
 
 block content
 	h1= title

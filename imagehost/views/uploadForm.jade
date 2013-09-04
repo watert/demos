@@ -3,10 +3,9 @@
 		.btn-upload {position:relative;overflow:hidden;
 			[type=file] {position:absolute; right:0; cursor:pointer;height:100%;}
 		}
-
 	}
 form.upload(method="POST", action="upload/path")
 	span.btn.btn-upload.btn-mini 
 		i.icon-plus 
 		span Select File
-		input(type="file",name="images[]")
+		input(type="file",name="images[]").pull-left
