@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="http://10.6.222.153/weblib/require+config.js"></script>
+	<script>
+
+	</script>
+	<script>
+/*
+_.random.str() : "Quick"
+_.random.str(3) : "Jumps Jumps Fox"
+_.random.list() : [43, 65, 52, 65, 49]
+_.random.list(3) : [43, 65, 49]
+
+
+*/
+(function(){
+	var methods = {
+		num:function(num1,num2){
+			num1=num1||100;
+			return _.random(num1,num2);
+		},
+		str:function(wordCount,words){
+			if(!words && typeof wordCount == "string"){
+				words = wordCount;
+				wordCount=1;
+			}
+			wordCount = wordCount||1;
+
+			words = words||"The Quick Brown Fox Jumps Over The Lazy Dog".split(" ");
+			str = _.random.select(words,wordCount).join(" ");
+			return str;
+		},
+		select:function(vals,count){
+			count = count||1;
+			vals = vals||_.range(10);
+			return _.random.list(count,function(){
+				return vals[_.random.num(vals.length-1)]
+			});
+		},
+		list:function(count,callback){
+			count = count||5;
+			var range = _.range(count);
+			if(!callback)callback = function(){
+				return _.random.num();
+			};
+			return _.map(range,callback);
+		}
+	};
+	function setup(){
+		_.extend(_.random,methods);	
+		return _.random;
+	}
+	if(window._)setup();
+	if(window.define&&window.require){
+		define("_.random",["underscore"],setup);
+	}
+})();
+var test = require(["_.random"],function(){
+	console.log(_.random.select([1,2,3,4,5]),_.random.str());
+});
+
+	</script>
+
+</head>
+<body>
+	
+</body>
+</html>

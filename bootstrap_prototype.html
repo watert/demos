@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="http://localhost/demos/weblib/require+config.js"></script>
+	<style type="text/less">
+		.page {
+			/* Style part*/
+			@hue:200;
+			@bg-lv1:hsl(@hue,80%,40%);
+			@bg-lv2:hsl(200,50%,70%);
+			@bg-lv3:hsl(@hue,50%,90%);
+			.navbar {
+				background:@bg-lv1;
+				border-color:darken(@bg-lv1,6%);
+				*,.navbar-brand,& {color:#FFF; }
+			}
+			.jumbotron {background:@bg-lv2;}
+			.side {
+				@bg:@bg-lv3;
+				background:@bg;color:contrast(@bg);
+			}
+
+
+			/* Layout */
+			.navbar {margin:0; }
+			.main {padding:20px}
+			.side {padding:40px 20px 20px;border-radius:0 0 5px 0; }
+		}
+	</style>
+	<script>
+		require(["bootstrap3","less"]);
+	</script>
+</head>
+<body class="page">
+	<div class="navbar navbar-static-top navbar-default">
+		<div class="">
+			<div class="navbar-inner">
+				<a href="./" class="navbar-brand"> <i class="icon-home"></i> Hey</a>
+			</div>
+		</div>
+	</div>
+	<div class="">
+		<div class="">
+			<div class="side col-md-4 col-lg-3">
+				<div class="alert alert-warning">Hey</div>
+				<div class="panel panel-default">
+					<div class="panel-heading"><h3 class="panel-title">Hey</h3></div>
+					<div class="panel-body">
+						<p>Hello World</p>
+					</div>
+				</div>
+			</div>
+			<div class="main col-md-8 col-lg-9">
+				<div class="jumbotron">
+					<h2>Hasdf</h2>
+				</div>
+						
+				<h3 class="page-header">Article Title</h3>
+
+				<p>Hey man?</p>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

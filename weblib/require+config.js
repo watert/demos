@@ -35,50 +35,59 @@ b.onScriptError,!1)),h.src=d,K=h,C?x.insertBefore(h,C):x.appendChild(h),K=null,h
 define=function(b,c,d){var h,j;"string"!==typeof b&&(d=c,c=b,b=null);I(c)||(d=c,c=null);!c&&H(d)&&(c=[],d.length&&(d.toString().replace(la,"").replace(ma,function(b,d){c.push(d)}),c=(1===d.length?["require"]:["require","exports","module"]).concat(c)));if(O){if(!(h=K))P&&"interactive"===P.readyState||M(document.getElementsByTagName("script"),function(b){if("interactive"===b.readyState)return P=b}),h=P;h&&(b||(b=h.getAttribute("data-requiremodule")),j=E[h.getAttribute("data-requirecontext")])}(j?j.defQueue:
 R).push([b,c,d])};define.amd={jQuery:!0};j.exec=function(b){return eval(b)};j(t)}})(this);
 
-/*
-Config by watert
-*/
-
-require.config({
-	baseUrl:"http://localhost/demos/weblib",
-	paths:{
-		jquery:"libs/jquery.min",
-		underscore:"libs/underscore-min",
-        bootstrap:"libs/bootstrap/js/bootstrap.min.js",
-		backbone:"libs/backbone-min",
-		less:"libs/less-1.4.2.min",
-		d3:"libs/d3.v3.min",
-		ldata:"libs/jQuery.lightDataBind",
-        "jquery.ui.widget":"libs/jQuery-File-Upload-8.8.2/js/vendor/jquery.ui.widget",
-		"jquery-file-upload":"libs/jQuery-File-Upload-8.8.2/js/jquery.fileupload"
-		// app:"app/base"
-	},
-	shim:{
-        "jquery.ui.widget":{
-            deps:["jquery"]
-        },
-		"jquery-file-upload":{
-            deps:[
-                "jquery",
-                "jquery.ui.widget",
-                "libs/jQuery-File-Upload-8.8.2/js/jquery.iframe-transport.js"
-                // "jquery.ui.widget"
-            ]
-        },
-		"ldata":{
-			deps:["jquery"]
-		},
-		"backbone":{
-			deps:["underscore","jquery"],exports:"Backbone"
-		},
-		"app/base":{
-			deps:["backbone","jquery"],
-			exports:"App"
-		}
-	}
-});
-
 (function(){
+	/*
+	Config by watert
+	*/
+	var __config = {
+		baseUrl:"http://localhost/demos/weblib",
+		paths:{
+			jquery:"libs/jquery.min",
+			underscore:"libs/underscore-min",
+	        bootstrap:"libs/bootstrap/js/bootstrap.min",
+	        bootstrap3:"libs/bootstrap-3.0.0/dist/js/bootstrap.min",
+			backbone:"libs/backbone-min",
+			less:"libs/less-1.4.2.min",
+			d3:"libs/d3.v3.min",
+			ldata:"libs/jQuery.lightDataBind",
+	        "jquery.ui.widget":"libs/jQuery-File-Upload-8.8.2/js/vendor/jquery.ui.widget",
+			"jquery-file-upload":"libs/jQuery-File-Upload-8.8.2/js/jquery.fileupload",
+			"store":"libs/store.js-master/store+json2.min.js",
+			"json2":"libs/store.js-master/store+json2.min.js"
+
+			// app:"app/base"
+		},
+		shim:{
+	        "jquery.ui.widget":{
+	            deps:["jquery"]
+	        },
+			"jquery-file-upload":{
+	            deps:[
+	                "jquery",
+	                "jquery.ui.widget",
+	                "libs/jQuery-File-Upload-8.8.2/js/jquery.iframe-transport.js"
+	                // "jquery.ui.widget"
+	            ]
+	        },
+			"ldata":{
+				deps:["jquery"]
+			},
+			"bootstrap3":{deps:["bootstrap3-css","jquery"]},
+			"bootstrap":{deps:["bootstrap-css","jquery"]},
+			"backbone":{
+				deps:["underscore","jquery"],exports:"Backbone"
+			},
+			"app/base":{
+				deps:["backbone","jquery"],
+				exports:"App"
+			}
+		}
+	};
+	require.config(__config);
+	if(console&&console.log){
+		console.log("Requirejs config:",__config);
+		console.log("Usable paths:",__config.paths);}
+
     function loadCss(url) {
         url = require.toUrl(url);
         var link = document.createElement("link");
@@ -88,7 +97,12 @@ require.config({
     // function loadUrl(url){
 
     // }
-    define("bootstrap",function(){
+    define("bootstrap3-css",function(){
+        loadCss("libs/bootstrap-3.0.0/dist/css/bootstrap.min.css");
+        // loadCss("libs/bootstrap-3.0.0/dist/css/bootstrap-theme.min.css");
+        loadCss("libs/bootstrap/css/font-awesome.min.css");
+    });
+    define("bootstrap-css",function(){
         loadCss("libs/bootstrap/css/bootstrap.min.css");
         loadCss("libs/bootstrap/css/font-awesome.min.css");
     });

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="http://localhost/weblib/default.js"></script>
+	<style> 
+		#testie,
+		#testie h1,
+		#testie h2,
+		#testie h3,
+		#testie h4 { font-family:"Droid Serif",arial;} </style>
+	<script> require(["bootstrap3","font/Droid Serif"]); </script>
+
+</head>
+<body id="testie" class="container">
+	<div class="navbar navbar-default">
+		<div class="navbar-inner">
+			<a href="" class="navbar-brand">Logo</a>
+		</div>
+	</div>
+
+<div id="blocks" class="markdown"><h1 id="weblib-reference" class="page-header">WebLib Reference</h1>
+<blockquote>
+<p><em>The secret to building large apps is never build large apps.</em> </p>
+<p><em>Break your applications into small pieces. Then, assemble those testable, bite-sized pieces into your big application.</em> </p>
+<p>-- Justin Meyer</p>
+</blockquote>
+<h2 id="hash-H2-0">Quick Start</h2>
+<p><strong>Step 1</strong>: Create an html. </p>
+<pre><code class="lang-shell">sublime .<span class="regexp">/index.html</span></code></pre>
+<p>Local or hosted ? WHATEVER.</p>
+<p><strong>Step 2</strong>: add script tag:</p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://localhost/weblib/default.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></pre>
+<p>This step adds requirejs and it's config at the same time.</p>
+<p><strong>Step 3</strong>: add needed precompiler or style libs: </p>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"> require([<span class="string">"coffee"</span>,<span class="string">"less"</span>,<span class="string">"bootstrap3"</span>]); </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></pre>
+<p><em> ENJOY CODING </em></p>
+<h3 id="hash-H3-1">Example</h3>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://localhost/weblib/require+config.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/less"</span>&gt;</span><span class="css">
+
+</span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"> require([<span class="string">"bootstrap3"</span>,<span class="string">"less"</span>,<span class="string">"coffee"</span>]); </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/coffeescript"</span>&gt;</span><span class="javascript">
+    require [<span class="string">"app/base"</span>],(app)-&gt;
+        console.log <span class="string">"hello, boilerplate"</span>
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></pre>
+<h2 id="hash-H2-2">Supported Libraries</h2>
+<p>Just use libraries, without file managing.</p>
+<p>Includes most useful libraries already.</p>
+<h3 id="hash-H3-3">Basic</h3>
+<p><code>jquery</code>: <a href="http://www.jquery.com/">jQuery</a>, is a fast, small, and feature-rich JavaScript library.</p>
+<p><code>bootstrap</code>: <a href="http://getbootstrap.com/2.3.2/">Bootstrap 2.3.2</a>, <code>bootstrap3</code> : <a href="http://getbootstrap.com/">Bootstrap 3.0</a>
+: Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.</p>
+<p><code>underscore</code>: <a href="http://documentcloud.github.io/underscore/">Underscore</a> is a utility-belt library for JavaScript</p>
+<p><code>backbone</code>: <a href="http://backbonejs.org/">Backbone.js</a> gives structure to web applications.</p>
+<h3 id="hash-H3-4">Utilities</h3>
+<p><code>ldata</code>: <a href="https://github.com/watert/jQuery.lightDataBind">jQuery.lightDataBind</a> simple enough (in few KBs code) Data binding based on jQuery.</p>
+<p><code>store</code>: </p>
+<p><code>json</code>: </p>
+<h3 id="hash-H3-5">Tools</h3>
+<p><code>jquery-file-upload</code>: <a href="http://blueimp.github.io/jQuery-File-Upload/">jQuery File Upload</a> File Upload widget with multiple file selection, drag&amp;drop support, progress bar, validation and preview images, audio and video for jQuery.</p>
+<p><code>libs/jquery.pin</code></p>
+<h3 id="hash-H3-6">Fonts</h3>
+<p><code>font/Open Sans</code>: <a href="http://www.google.com/fonts/specimen/Open+Sans">Open Sans</a> is a humanist sans serif typeface designed by Steve Matteson, Type Director of Ascender Corp</p>
+<p><code>font/Droid Serif</code>: The <a href="http://www.google.com/fonts/specimen/Droid+Serif">Droid Serif</a> font family features a contemporary appearance and was designed for comfortable reading on screen.</p>
+<p><code>font/PT Serif</code>: <a href="http://www.google.com/fonts/specimen/PT+Serif">PT Serif™</a> is the second pan-Cyrillic font family developed for the project “Public Types of the Russian Federation.”</p>
+<h3 id="hash-H3-7">Visualization</h3>
+<p><code>d3</code>: <a href="http://d3js.org/">Data-Driven Documents</a> D3.js is a JavaScript library for manipulating documents based on data.</p>
+<p><code>highcharts</code>: <a href="http://highcharts.com">Highcharts</a> Interactive JavaScript charts for your web projects.</p>
+<h3 id="hash-H3-8">PreCompilers and Parsers</h3>
+<p><code>less</code>: <a href="http://lesscss.org/">{less}</a>: The dynamic stylesheet language</p>
+<p><code>coffee-script</code>: <a href="http://coffeescript.org/">CoffeeScript</a> is a little language that compiles into JavaScript.</p>
+<p><code>marked</code>: <a href="https://github.com/chjj/marked">marked</a> A markdown parser and compiler. Built for speed.</p>
+<p><code>highlight</code>: <a href="https://github.com/isagalaev/highlight.js">Highlight.js</a> Javascript syntax highlighter</p>
+<h2 id="hash-H2-9">Writing Modules</h2>
+<p>Just write modules with requirejs define.</p>
+<h3 id="hash-H3-10">Inline Example</h3>
+<pre><code><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
+    define(<span class="string">"moduleName"</span>,[<span class="string">"jquery"</span>,<span class="string">"backbone"</span>],<span class="keyword">function</span>($,Backbone){
+        <span class="keyword">return</span> Backbone.View.extend({
+            events:{},
+            render:<span class="keyword">function</span>(){},
+            initialize:<span class="keyword">function</span>(){}
+        });
+    });
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></pre>
+<h3 id="hash-H3-11">Add to app handler</h3>
+<pre><code class="lang-html"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
+    define(<span class="string">"moduleName"</span>,[<span class="string">"app/base"</span>],<span class="keyword">function</span>($,App){
+        App.Views.module = Backbone.View.extend();
+        App.Collections.module = Backbone.View.extend();
+        App.Model.module = Backbone.Model.extend();
+        <span class="keyword">var</span> init = <span class="keyword">function</span>(attrs){
+            <span class="comment">/* Initialize */</span>
+        };
+        <span class="keyword">return</span> init;
+    });
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></pre>
+<h3 id="hash-H3-12">File Example</h3>
+<pre><code class="lang-javascript"><span class="comment">/* moduleName.js */</span>
+define([<span class="string">"jquery"</span>,<span class="string">"backbone"</span>],<span class="keyword">function</span>($,Backbone){
+    <span class="keyword">return</span> Backbone.View.extend({
+        events:{},
+        render:<span class="keyword">function</span>(){},
+        initialize:<span class="keyword">function</span>(){}
+    });
+});</code></pre>
+<pre><code class="lang-javascript">/* <span class="keyword">index</span>.js <span class="variable">*/</span>
+<span class="keyword">require</span>([<span class="string">"jquery"</span>,<span class="string">"./moduleName.js"</span>],function(<span class="variable">$,</span>module){
+    console.<span class="keyword">log</span>(<span class="string">"added module and use it."</span>,<span class="variable">$,</span>module);
+});</code></pre>
+<h2 id="hash-H2-13">TODOs</h2>
+<h3 id="hash-H3-14">Team Brand Modules</h3>
+<ul>
+<li>app/view/footer: copyright info</li>
+<li>app/view/nav: global part</li>
+<li>app/view/sidebar: if there's an sidebar or style</li>
+<li>app/links</li>
+</ul>
+<h3 id="hash-H3-15">Libs that about to add</h3>
+<ul>
+<li><p>Tools</p>
+<ul>
+<li><a href="https://github.com/webpop/jquery.pin">jquery.pin</a></li>
+<li>notify</li>
+<li>rich editor like bootstrap.wysiwyd</li>
+<li>select2</li>
+<li>Backbone.Form</li>
+</ul>
+</li>
+<li><p>Visualize</p>
+<ul>
+<li><a href="">jquery.sparkline</a></li>
+<li><a href="http://justgage.com/">JustGage</a> <a href="http://anthonyterrien.com/knob/">jQuery Knob</a> knob is a full circle version of justgage</li>
+<li>dc.js</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</body>
+</html>
