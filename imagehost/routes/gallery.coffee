@@ -8,6 +8,8 @@ Gallery = mongoose.model "galleries",mongoose.Schema
 	name: String
 	path: String
 	images:[]
+
+
 _.extend Gallery,
 	getPath:(path,callback)->
 		Gallery.findOne {path:path},(err,data)->
@@ -28,7 +30,7 @@ _.extend Gallery,
 				image = 
 					name : fd.name
 					path : name
-				model.images.push image
+				model.images.unshift image
 				fs.rename fd.path,destPath
 				# console.log "#{__dirname}/../uploads/#{name}"
 			model.save (err,data)->

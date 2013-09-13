@@ -2,77 +2,33 @@ extends layout
 block append head
 	:less
 		.gallery-container {
-			padding:10px;border:3px solid #EEE;overflow:hidden;
+			height:100px;
+
+			padding:5px;border:3px solid #EEE;overflow:hidden;
+			form {margin:0;}
+			.desc {margin-left:5px;}
+			.gallery-title {padding:0 0 5px;}
+			.gallery {overflow:hidden;max-height:110px;}
 		}
 		.image-item {
-			.img-container {height:120px;overflow:hidden;}
-			margin:0 10px 10px 0;
-			
-			img {width:120px;}
+			.img-container {overflow:hidden;}
+			margin:0 5px 5px 0;
+			img {max-width:none;}
 		}
-	:coffee
-		require ["backbone"],(Backbone)->
-			GalleryView = Backbone.View.extend
-				descTmpl : _.template """
-					path: <code><%=path%></code>
-					image count: <code><%=images.length%></code>
-				"""
-				render:()->
-					console.log @collection
-					html = @descTmpl @collection.data
-					@$(".desc").html(html)
-				initialize:(options)->
-					@collection - options.collection
-					@render()
-			ImageView = Backbone.View.extend
-				tmpl: _.template """
-					<div class="img-container">
-						<img src="uploads/<%=path%>" alt="" class="img">
-					</div>
-				"""
-				tagName:"div"
-				className:"image-item pull-left img-polaroid"
-				initialize:(model)->
-					@$el.html @tmpl model.toJSON()
-					img = @$("img")
-					img[0].onload = ()->
-						[w,h] = [img.width(),img.height()]
-						if h>w then img.css "margin-top":(w-h)/2
-						else img.css "margin-left":(h-w)/2
-			GalleryCollection = Backbone.Collection.extend
-				url:"gallery/"
-				initialize:(path="path")->
-					@path = path
-					@url += path
-					console.log @url
-					@
-				parse:(data)->
-					@data = data
-					data.images
-			$ ->
-				path = "path"
-				$el = $(".gallery")
+	script(src="coffee/index.js")
 
-				collection = new GalleryCollection(path)
-				collection.on "sync",(data)->
-					new GalleryView 
-						el:$(".gallery-container")[0]
-						collection:collection
-					$el.empty()
-					@each (img)->
-						view = new ImageView img
-						$el.append view.$el
 
-				collection.fetch()
-				require ["jquery-file-upload","bootstrap"],(jqfupload)->
-					$ -> $(".btn-upload").fileupload()
-				
 block content
 	h1= title
 	p Welcome to #{title}
 	.gallery-container
-		.clearfix
+		.gallery-title.clearfix
+			span.gallery-pager.pull-right
+				button(type=button).btn.btn-mini: i.icon-chevron-left
+				|  5/12 
+				button(type=button).btn.btn-mini: i.icon-chevron-right
 			.pull-left
 				include uploadForm.jade
 			span.desc
 		.gallery
+		.actions

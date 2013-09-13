@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>My Boilerplate</title>
+	<script src="http://localhost/weblib/require+config.js"></script>
+	
+	<style type="text/less">
+	</style>
+	<script>require(["bootstrap3","less","coffee"]); </script>
+	<script type="text/coffeescript">
+		define "vertical-middle",["jquery"],($)->
+			
+		require ["app/base"],(app)->
+			console.log "hello, boilerplate"
+	</script>
+</head>
+<body>
+	<div class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-inner">
+				<a href="./" class="navbar-brand"> Test </a>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3"> 
+				<div class="alert alert-warning"> Hey </div>
+				<div class="inline-present">
+					<div class="row-3">
+						<div class="row-body va-middle">
+							Hello World
+						</div>
+					</div>
+					<div class="row-7">
+						<div class="row-body">
+							<p>Hello World Again</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-9">
+				
+			</div>
+		</div>
+	</div>
+</body>
+</html>
