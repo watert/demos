@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>My Boilerplate</title>
+	<script src="http://localhost/weblib/pack.js.php"></script>
+	
+	<style type="text/less">
+		body.uec {
+			font-family:"Open Sans","Hiragino Sans GB","Arial","微软雅黑";
+			h1,h2,h3,.footer { font-family:"Open Sans","Hiragino Sans GB","Arial","微软雅黑"; } 
+			.footer {font-weight:300;font-size:15px;color:#666;}
+			h1 {font-size:30px;}
+			h2 {font-weight:600;}
+			h2,h3 {font-size:20px;}
+			h4,h5 {font-size:16px;}
+			ul,ol {
+				.article-list {padding-left:0;list-style-position: inside;}
+			}
+			.countries-section {
+				font-size:12px;
+				h3 {color:orange;}
+				p {margin:5px 0;}
+				.lead {font-size:14px;background:hsl(30,80%,97%);padding:2px 0;
+					strong {font-size:17px;}
+				}
+				.icon-thumbs-up {color:orange;}
+				.row {margin:0;}
+				.col-md-6 {border:1px solid #DDD;margin:0 -1px -1px 0;}
+				.chart-country-radar {margin:10px 0;}
+			}
+			#countries-info {
+				@width:80px;
+				margin:15px 0 20px 0;
+				dl {
+					dt {width:@width;}	
+					dd {margin-left:@width+15;}
+					dt,dd {line-height:1.6em;}
+				}
+			}
+
+			small {font-size:13px;font-weight:normal;
+				label {font-weight:normal}
+			}
+			.table { td,th {font-size:12px;}}
+			.alert {padding:5px;}
+			.alert,.well {
+				dl {margin:0;font-size:12px;}
+			}
+			.panel-heading {padding:6px 8px;}
+			.panel-body {padding:8px;}
+
+		}
+	</style>
+	<script>require(["bootstrap3","less","coffee","font/Open Sans"]); </script>
+	<script type="text/coffeescript">
+		require ["app/base"],(app)->
+			$("#navbar").load("uec_nav.html")
+			setCardHeight = ()->
+				doms = $(".country-card")
+				maxHeight = _.max(doms.map -> $(@).height())
+				doms.each ->
+					d = $(this)
+					h = maxHeight - d.height()
+					d.css marginBottom:h
+					# console.log d.css,styles
+			setInterval setCardHeight,2000
+			console.log "hello, boilerplate"
+	</script>
+</head>
+<body class="uec">
+
+	<div id="navbar"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h2 class="panel-title">HighLights</h2>
+					</div>
+					<div class="panel-body">
+						<ul class="article-list">
+							<li> <strong>重点国家数据</strong> </li>
+							<li> <strong>优化事宜</strong> </li>
+						</ul>
+
+						<div class="text-muted text-right meta editable">
+							<a href=""><i class="icon-edit"></i> Edit</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<strong class="panel-title">近期事件</strong>
+					</div>
+					<div class="panel-body">
+						hadf
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<hr>
+		<br>
+
+		<!-- 分国家总览 -->
+		<h2>分国家竞品对比总览
+			<small class="pull-right">	
+
+				<span class="btn-group btn-group-xs">
+					<label>
+				        <input type="checkbox" checked>
+				        显示网络对比 
+			        </label>
+					<label>
+				        <input type="checkbox" checked>
+				        相对基线 
+			        </label>
+				</span>
+				<span class="btn-group btn-group-xs">
+					<button class="btn btn-default" type="button"> 畅通率 </button>
+					<button class="btn btn-primary" type="button"> 发文本 </button>
+					<button class="btn btn-default" type="button"> 发图 </button>
+					<button class="btn btn-default" type="button"> 发语音 </button>
+				</span>
+			</small>
+		</h2>
+
+		
+		
+		<div class="chart-countries-core"></div>
+		<div class="chart-countries-network"></div>
+		<script type="text/coffeescript">
+			require.config 
+				shim:
+					highcharts:
+						init: -> Highcharts.setOptions
+							credits:{enabled:false}
+							title:
+								enabled:false,text:""
+							yAxis:{title:{text:"延时 /ms"}}
+					"libs/highcharts-more":["highcharts"]
+
+
+			define "data",
+				countries: "ID,IN,TH,MX,HK,TW".split(",")
+				keys:"SendMsg,SendVoice,SendPic".split(",")
+				products:"WeChat,WhatsApp,Line".split(",")
+				networks:"Wifi,NonWifi".split(",")
+			require ["data","app/base","highcharts"],(data)->
+				# $(".chart-countries-core").highcharts
+				# 	chart:
+				# 		type:"column",height:180
+				# 	xAxis:{categories:data.countries}
+				# 	yAxis:{title:{text:"延时 /ms"}}
+				# 	series: for prod in data.products
+				# 		name:prod
+				# 		data: _.random(20,100) for i in data.countries
+				data2 = for prod in data.products
+					a = for net in data.networks
+						stack:prod
+						name:"#{prod}-#{net}"
+						data: _.random(20,100) for i in data.countries
+				data2 = _.flatten data2
+				$(".chart-countries-network").highcharts
+					chart:
+						type:"column",height:180
+					xAxis:{categories:data.countries}
+					series: data2
+					plotOptions:
+						column:{stacking:"normal"}
+		</script>
+		
+		<div class="" id="countries-info">
+			<dl class="dl-horizontal">
+				<dt>监测方法</dt>
+				<dd>手机物理终当地，自动使用4款产品按照最小每15min间隔进行发文本、发图片测试，并根据监听的网络包分析并获取实际操作时长；</dd>	
+				<dt>采用机型</dt>
+				<dd>IN（Samsung S5360）、ID（Samsung I8190）、TH（Samsung I8190）、MX（Samsung I8190）；</dd>	
+				<dt>分析方法</dt>
+				<dd>对上报的包数据进行抓包解析分析，对发文本、发图片操作的发起、截止时间进行匹配分析；</dd>	
+				<dt>消息大小</dt>
+				<dd>消息均为10个字符，图片大约为60KB；</dd>	
+			</dl>
+		</div>
+		
+		<hr>
+
+		<div class="countries-section">
+			<h2>重点国家数据</h2>
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="country-card clearfix">
+						<h3>India</h3>
+						<p class="lead">
+							综合网络畅通率 <strong>75%</strong>, 竞品之中排名 <strong>2</strong>, 低于首位 <strong>12%</strong>
+						</p>
+						<p><i class="icon-info-sign text-muted"></i> 
+							WeChat在WiFi网络环境下相对于竞品体验最好，但在非WiFi条件下，体验较Line/Whatsapp差。	</p>
+						<p>表明部分印度移动运营商至WeChat接入点网络较竞争对手差，需继续优化WeChat接入对移动运营商的覆盖质量；</p>
+						<div class="chart-country-radar"></div>
+						<p><a href="" class="btn btn-default btn-xs">展开查看完整数据</a>
+							<button class="btn btn-link"> <i class="icon-pencil"></i> Edit</button>
+
+						</p>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="country-card clearfix">
+						<h3>Indonesia</h3>
+						<p class="lead">
+							综合网络畅通率 <strong>75%</strong>, 竞品之中排名 <strong>2</strong>, 低于首位 <strong>12%</strong>
+						</p>
+						<p><i class="icon-info-sign text-muted"></i> 
+							除WiFi下Line发文本稍差于WeChat外，
+							其余均明显优于WeChat与Whatsapp。</p>
+						<p>	WeChat的整体表现优于Whatsapp。需持续优化印尼加速点对当地用户的覆盖情况，以缩小与Line的差距。	</p>
+						<div class="chart-country-radar"></div>
+						<p><a href="" class="btn btn-default btn-xs">展开查看完整数据</a>
+							<button class="btn btn-link"> <i class="icon-pencil"></i> Edit</button>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="country-card clearfix">
+						<h3>Thailand</h3>
+						<p class="lead">
+							综合网络畅通率 <strong>75%</strong>, 竞品之中排名 <strong>1 <i class="icon-thumbs-up pull-right"></i></strong>
+							
+						</p>
+						<p><i class="icon-info-sign text-muted"></i> 
+							Line在WiFi/非WiFi的用户体验几乎均优于WeChat/Whatsapp，
+							主要受益于泰国与Line主要业务部署点日本之间的良好网络连通性。
+						</p>
+						<p>WeChat与Whatsapp在泰国体验相当，互有优劣；	</p>
+						<div class="chart-country-radar"></div>
+						<p><a href="" class="btn btn-default btn-xs">展开查看完整数据</a>
+							<button class="btn btn-link"> <i class="icon-pencil"></i> Edit</button>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="country-card clearfix">
+						<h3>Mexico</h3>
+						<p class="lead">
+							综合网络畅通率 <strong>75%</strong>, 竞品之中排名 <strong>2</strong>, 低于首位 <strong>12%</strong>
+						</p>
+						<p><i class="icon-info-sign text-muted"></i> 
+							Whatsapp在WiFi环境下体验最好，WeChat 在非WiFi环境下发图体验更佳。
+						</p>
+						<p>整体上，WeChat优于Line，但差于Whatsapp。表明Whatsapp在美国接入点至墨西哥网络好于WeChat（加拿大），同时更优于Line（日本）；</p>
+						<div class="chart-country-radar"></div>
+						<p><a href="" class="btn btn-default btn-xs">展开查看完整数据</a>
+							<button class="btn btn-link"> <i class="icon-pencil"></i> Edit</button>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="others">
+			<h2>所有国家</h2>
+			
+			<ul class="nav nav-pills">
+				<li><a href=""> <i class="icon-star-empty"></i> India </a></li>
+				<li><a href=""> <i class="icon-star-empty"></i> Indonesia </a></li>
+				<li><a href=""> <i class="icon-star-empty"></i> Thailand </a></li>
+				<li><a href=""> <i class="icon-star-empty"></i> Mexico </a></li>
+			</ul>
+
+			<ul class="nav nav-pills">
+				<li><a href=""> India </a></li>
+				<li><a href=""> Indonesia </a></li>
+				<li><a href=""> Thailand </a></li>
+				<li><a href=""> Mexico </a></li>
+				<li><a href=""> India </a></li>
+				<li><a href=""> Indonesia </a></li>
+				<li><a href=""> Thailand </a></li>
+				<li><a href=""> Mexico </a></li>
+			</ul>
+			<hr>
+		</div>
+
+		<script type="text/coffeescript">
+		require ["data","app/base","highcharts","libs/highcharts-more"],(data)->
+			categories = for net in data.networks
+				"#{net}-#{key}" for key in data.keys
+			categories = _.flatten(categories)
+			# data = _.flatten data
+			$(".chart-country-radar").each ->
+				series = for prod in data.products
+					a = for net in data.networks
+						_.random(20,100) for i in data.keys
+					a = _.flatten a
+					ret = 
+						stack:prod
+						name:prod
+						data:a
+				series[0].type = "area"
+				$(@).highcharts
+					chart:
+						type:"line",height:180,polar:true
+					xAxis:{categories:categories}
+					yAxis:{title:{text:""},max:100}
+					series: series
+					legend:
+						layout:"vertical"
+						align:"right"
+						verticalAlign:"middle"
+						# enabled:false
+					plotOptions:
+						column:{stacking:"normal"}
+		</script>
+
+	</div>
+	<p class="footer text-center">
+		Best regards, all rights reserved. BOSS Team 2013.
+	</p>
+</body>
+</html>

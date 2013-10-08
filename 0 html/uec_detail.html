@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>My Boilerplate</title>
+	<script src="http://localhost/weblib/pack.js.php"></script>
+	
+	<style type="text/less">
+		body.uec {
+			font-family:"Open Sans","Hiragino Sans GB","Arial","微软雅黑";
+			h1,h2,h3,h4,.footer { font-family:"Open Sans","Hiragino Sans GB","Arial","微软雅黑"; } 
+			.footer {font-weight:300;font-size:15px;color:#666;}
+			.sidebar { 
+				background:hsl(210,60%,98%);
+				h3 {background:hsl(210,100%,90%);padding:5px 0;
+					margin: 0 -5px 10px;padding:5px;
+				}
+				li {padding:4px;}
+				li.active {background:hsl(210,80%,60%);
+					a {color:#FFF;}
+				}
+			}
+			.main {
+				#detail-chart {margin:20px 0;}
+				.desc-info { max-height:24px;line-height: 1.5em; overflow:hidden; }	
+			}
+			h1 {font-size:30px;}
+			h2 {font-weight:600;}
+			h2,h3 {font-size:20px;}
+			h4,h5 {font-size:16px;}
+			ul,ol {
+				.article-list {padding-left:0;list-style-position: inside;}
+			}
+		}
+	</style>
+	<script>require(["bootstrap3","less","coffee","font/Open Sans"]); </script>
+	<script type="text/coffeescript">
+
+		require.config 
+			shim:
+				highcharts:
+					init: -> Highcharts.setOptions
+						credits:{enabled:false}
+						title:
+							enabled:false,text:""
+						yAxis:{title:{text:"延时 /ms"}}
+				"libs/highcharts-more":["highcharts"]
+		define "data",
+			countries: "ID,IN,TH,MX,HK,TW".split(",")
+			keys:"SendMsg,SendVoice,SendPic".split(",")
+			products:"WeChat,WhatsApp,Line".split(",")
+			networks:"Wifi,NonWifi".split(",")
+		define "configs",["data","underscore"],(data)->
+			ret = 
+				keys:
+					chart:{ type:"column" }
+					xAxis:{ categories:data.keys }
+					series: for prod in data.products
+						a = (_.random(20,100) for key in data.keys)
+						# a = _.flatten a
+						ret = 
+							stack:prod
+							name:prod
+							data:a
+				products:
+					chart:{ type:"column" }
+					xAxis:{ categories:data.products }
+					series: for key in data.keys
+						a = (_.random(20,100) for prod in data.products)
+						# a = _.flatten a
+						ret = 
+							stack:prod
+							name:prod
+							data:a
+				radar:
+					chart:{ type:"line",polar:true }
+					xAxis:
+						categories: do ->
+							ret = for net in data.networks
+								"#{net}-#{key}" for key in data.keys
+							ret = _.flatten(ret)
+					series : do ->
+						ret = for prod in data.products
+							a = for net in data.networks
+								_.random(20,100) for i in data.keys
+							a = _.flatten a
+							ret = 
+								stack:prod
+								name:prod
+								data:a
+						ret[0].type = "area"
+						ret
+	</script>
+	<script type="text/coffeescript">
+		require ["app/base","configs","libs/highcharts-more"],(app,configs)->
+			$("#navbar").load("uec_nav.html")
+			config = $.extend true,{
+				chart:
+					height:250
+			},configs["radar"]
+			$("#detail-chart").highcharts config
+			console.log "config",config
+			console.log "hello, boilerplate"
+	</script>
+</head>
+<body class="uec">
+	<div id="navbar"></div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3 sidebar">
+				<h3>Countries List</h3>
+				<h4> 重点国家 </h4>
+				<ul class="list-unstyled">
+					<li><a href=""> <i class="icon-star-empty"></i> India </a></li>
+					<li class="active"><a href=""> <i class="icon-star-empty"></i> Indonesia </a></li>
+					<li><a href=""> <i class="icon-star-empty"></i> Thailand </a></li>
+					<li><a href=""> <i class="icon-star-empty"></i> Mexico </a></li>
+				</ul>
+				<h4> 其它国家 </h4>
+				<ul class="list-unstyled">
+					<li><a href=""> India </a></li>
+					<li class=""><a href=""> Indonesia </a></li>
+					<li><a href=""> Thailand </a></li>
+					<li><a href=""> Mexico </a></li>
+				</ul>
+			</div>
+			<div class="col-md-9 main">
+				<ol class="breadcrumb">
+					<li><a href="#">Home</a></li>
+					<li class="active">India</li>
+				</ol>
+				<h1>印度</h1>
+				<div class="desc-info">
+					<div class="btn btn-default btn-xs pull-right">
+						<i class="icon-chevron-sign-down text-muted"></i> 展开
+					</div>
+					<p>
+						<i class="icon-info-sign text-muted"></i> 
+						WeChat在WiFi网络环境下相对于竞品体验最好，但在非WiFi条件下，体验较Line/Whatsapp差。	</p>
+					<p>表明部分印度移动运营商至WeChat接入点网络较竞争对手差，需继续优化WeChat接入对移动运营商的覆盖质量；</p>
+				</div>
+				<br>
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="">全局概况</a></li>
+					<li><a href="">指标对比</a></li>
+					<li><a href="">产品对比</a></li>
+				</ul>
+				<div id="detail-chart">
+					
+				</div>
+				<br>
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<td rowspan=2>地区</td>
+							<td colspan=2>Wifi</td>
+							<td colspan=2>Non-Wifi</td>
+						</tr>
+						<tr>
+							<td> 发语音 </td>
+							<td> 发图 </td>
+							<td> 发语音 </td>
+							<td> 发图 </td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>WeChat</td>
+							<td class="num"></td>
+							<td class="num td-danger"></td>
+							<td class="num"></td>
+							<td class="num"></td>
+
+						</tr>
+						<tr>
+							<td>WhatsApp</td>
+							<td class="num"></td>
+							<td class="num td-success"></td>
+							<td class="num"></td>
+							<td class="num"></td>
+
+						</tr>
+						<tr>
+							<td>Line</td>
+							<td class="num"></td>
+							<td class="num"></td>
+							<td class="num"></td>
+							<td class="num"></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<hr>
+	<p class="footer text-center">
+		Best regards, all rights reserved. BOSS Team 2013.
+	</p>
+</body>
+</html>
