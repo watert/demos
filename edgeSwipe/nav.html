@@ -8,41 +8,33 @@
 </head>
 <body>
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<link rel="stylesheet" href="animate.css">
+	<link rel="stylesheet" href="navctrl.css">
 	<script src="jquery.edgeswipe.js"></script>
+	<script src="jquery.navbarctrl.js"></script>
 	<script>
-		$(function(){
-			var info = function(){ 
-				html = $.makeArray(arguments).join("\n");
-				$("pre").html(html); 
-			};
-			$(".myswipe").edgeSwipe()
-				.on({
-					"swipeend":function(e,data){ 
-						console.log("swpieend",data); 
-						info("swipe end",JSON.stringify(data,null,"\t"));
-					}
-				})
-		});		
+
 	</script>
 	<style>
+		#navbarCtrl {height:480px;}
 		.container {
 			margin:0 auto;
 			border:1px solid #DDD;
+			min-height:480px;
 			width:auto;
-			
 		}
-		.myswipe {
-			background:#EEE;
-			height:480px;
-			padding:20px;
-		}
+		.hidden {display:none;}
 	</style>
 	<br>
 	<div class="container">
-		<div class="myswipe">
-			<pre>Swipe</pre>
+		<div id="navbarCtrl">
+			
 		</div>
-		
+		<div class="hidden">
+			<div class="view">
+				View Content
+			</div>
+		</div>
 	</div>
 </body>
 </html>
